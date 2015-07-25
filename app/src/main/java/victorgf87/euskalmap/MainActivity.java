@@ -2,13 +2,12 @@ package victorgf87.euskalmap;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.MainThread;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +29,6 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import butterknife.Optional;
 import victorgf87.euskalmap.classes.Fetcher;
 import victorgf87.euskalmap.classes.Group;
 import victorgf87.euskalmap.classes.Groups;
@@ -38,7 +36,6 @@ import victorgf87.euskalmap.classes.Place;
 import victorgf87.euskalmap.classes.Places;
 import victorgf87.euskalmap.classes.User;
 import victorgf87.euskalmap.classes.Users;
-import victorgf87.euskalmap.customviews.PlaceView;
 import victorgf87.euskalmap.placesadapters.PlacesAdapter;
 
 public class MainActivity extends AppCompatActivity
@@ -64,11 +61,12 @@ public class MainActivity extends AppCompatActivity
                 try {
                     new Fetcher().fetchFromUrl();
                     Place pla=Places.getInstance().getPlaces().get(0);
-                    final PlaceView pv=new PlaceView(MainActivity.this,pla);
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             populateRecyclerPlaces(Places.getInstance().getPlaces());
+
 
                         }
                     });
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity
         PlacesAdapter adapt=new PlacesAdapter(places);
         recyclerPlaces.setAdapter(adapt);
 
-        recyclerPlaces.setLayoutManager(new GridLayoutManager(this,Fetcher.COLUMNS));
+        recyclerPlaces.setLayoutManager(new GridLayoutManager(this,10));
 
     }
 

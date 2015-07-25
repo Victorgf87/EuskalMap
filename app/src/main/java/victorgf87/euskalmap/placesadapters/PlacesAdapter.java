@@ -9,7 +9,6 @@ import java.util.List;
 
 import victorgf87.euskalmap.R;
 import victorgf87.euskalmap.classes.Place;
-import victorgf87.euskalmap.customviews.PlaceView;
 
 /**
  * Created by Nabe on 25/07/15.
@@ -37,8 +36,8 @@ public class PlacesAdapter extends RecyclerView.Adapter<PlaceViewHolder>
     @Override
     public void onBindViewHolder(PlaceViewHolder viewHolder, int pos) {
         Place item = places.get(pos);
-
         viewHolder.bindPlace(item);
+
     }
     @Override
     public int getItemCount() {
