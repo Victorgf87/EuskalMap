@@ -24,8 +24,8 @@ public class Fetcher
      */
 
     private static final String URL="https://www.euskal.org/eps/reservas/mapa.php?IdParty=27&lang=0&izenak=1";
-    private static final Integer COLUMNS =128;//How many COLUMNS
-    private static final Integer ROWS=34;
+    public static final Integer COLUMNS =128;//How many COLUMNS
+    public static final Integer ROWS=34;
 
 
 

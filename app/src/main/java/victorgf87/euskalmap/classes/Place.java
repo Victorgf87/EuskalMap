@@ -60,6 +60,26 @@ public class Place
         return cssClassToName.get(this.cssClass);
     }
 
+    public String onlyPlaceUbication()
+    {
+        return row+"-"+column;
+    }
+
+    public String getDataInfo()
+    {
+        String ret=resultText()+": ";
+        if(user==null || user.getUserName().equals("") || user.getUserName().length()==0)
+        {
+            ret+="Usuario desconocido";
+        }
+        else
+        {
+            ret+=user.getUserName();
+        }
+
+        return ret;
+    }
+
     public String resultText()
     {
         return row+"-"+column+" ("+cssClassToName.get(cssClass)+")";
