@@ -1,6 +1,7 @@
 package victorgf87.euskalmap;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,9 +19,9 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -40,7 +41,7 @@ import victorgf87.euskalmap.placesadapters.PlacesAdapter;
 
 public class MainActivity extends AppCompatActivity
 {
-    @InjectView(R.id.activity_main_rootLayout)RelativeLayout rootLayout;
+
     @InjectView(R.id.activity_main_recyclerPlaces)RecyclerView recyclerPlaces;
 
     @Override
@@ -48,37 +49,62 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
-
-        HandlerThread ht=new HandlerThread("threaddd");
-
-        ht.start();
-        Handler handler=new Handler(ht.getLooper());
-        handler.post(new Runnable()
-        {
-            @Override
-            public void run()
-            {
-                try {
-                    new Fetcher().fetchFromUrl();
-                    Place pla=Places.getInstance().getPlaces().get(0);
-
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            populateRecyclerPlaces(Places.getInstance().getPlaces());
+        refreshMap();
 
 
-                        }
-                    });
+    }
+
+    ProgressDialog dialog;
+    private void refreshMap()
+    {
+
+        try {
+            HandlerThread ht = new HandlerThread("threaddd");
+
+            dialog = new ProgressDialog(this);
+            dialog.setIndeterminate(true);
+            dialog.setMessage("Cargando mapa");
+            dialog.show();
+
+            ht.start();
+            Handler handler = new Handler(ht.getLooper());
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        new Fetcher().fetchFromUrl();
+                        Place pla = Places.getInstance().getPlaces().get(0);
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                populateRecyclerPlaces(Places.getInstance().getPlaces());
+                                dialog.dismiss();
+
+                            }
+                        });
 
 
-                } catch (IOException e) {
-                    e.printStackTrace();
+                    } catch (IOException e)
+                    {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run()
+                            {
+                                Toast.makeText(MainActivity.this, "Ha habido un problema cargando el mapa, vuelva a intentarlo más tarde", Toast.LENGTH_LONG).show();
+                                dialog.dismiss();
+                            }
+                        });
+
+                    }
                 }
-            }
-        });
-
-
+            });
+        }
+        catch(Exception e)
+        {
+            Toast.makeText(MainActivity.this,"Ha habido un problema cargando el mapa, vuelva a intentarlo más tarde",Toast.LENGTH_LONG).show();
+            if(dialog!=null && dialog.isShowing())dialog.dismiss();
+        }
     }
 
     @MainThread
@@ -86,8 +112,9 @@ public class MainActivity extends AppCompatActivity
     {
         PlacesAdapter adapt=new PlacesAdapter(places);
         recyclerPlaces.setAdapter(adapt);
+        //TODO no consigo hacer que el recycler sobresalga de la pantalla
+        recyclerPlaces.setLayoutManager(new GridLayoutManager(this, 10));
 
-        recyclerPlaces.setLayoutManager(new GridLayoutManager(this,10));
 
     }
 
@@ -121,6 +148,9 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case R.id.menu_main_search_group:
                 menuSearchGroup();
+                return true;
+            case R.id.menu_main_refresh_map:
+                refreshMap();
                 return true;
 
         }

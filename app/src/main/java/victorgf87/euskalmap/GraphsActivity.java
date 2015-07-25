@@ -61,15 +61,14 @@ public class GraphsActivity extends AppCompatActivity
         dataList.add(places.getHowManyGranted());
 
 
-        Collection<String> names= Place.cssClassToName.values();
-        for(String name:names)
-        {
-            strList.add(name);
-        }
+        strList.add("Sin asignar");
+        strList.add("Reservado");
+        strList.add("Reserva confirmada");
+        strList.add("Acreditado");
 
 
         amountBars.setBottomTextList(strList);
-        amountBars.setDataList(dataList,Places.getInstance().getPlaces().size());
+        amountBars.setDataList(dataList, Places.getInstance().getPlaces().size());
     }
 
     private void fillPie()
@@ -85,12 +84,7 @@ public class GraphsActivity extends AppCompatActivity
         pieView.setDate(pieHelperArrayList);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_graphs, menu);
-        return true;
-    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
