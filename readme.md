@@ -1,4 +1,6 @@
-EuskalMap, una aplicación de Víctor González Fuente para visualizar el mapa de ocupación de la Euskal Encounter. Entregado el día 25 de julio.
+EuskalMap, una aplicación de Víctor González Fuente para visualizar el mapa de ocupación de la Euskal Encounter. 
+Esta aplicación fue creada para la actividad llamada Fast Android Coding llevada a cabo en la Euskal Encounter; dicha actividad consistía en crear un mapa de la ocupación de la party que fuera interactivo, con la libertad de añadir las funcionalidades que el desarrollador deseara.
+Entregado el día 25 de julio.
 Nombre: Víctor González Fuente
 Nick: Nabe
 
