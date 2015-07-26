@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Victor Gonzalez on 24/07/15.
  * This class represents an user group
  */
-public class Group
+public class Group implements Comparable<Group>
 {
     private String groupName;   //Name of the group
     private List<User> users;   //List of users that belong to this group
@@ -57,5 +57,11 @@ public class Group
     public String resultText()
     {
         return groupName;
+    }
+
+    @Override
+    public int compareTo(Group another)
+    {
+        return this.getGroupName().compareToIgnoreCase(another.getGroupName());
     }
 }
