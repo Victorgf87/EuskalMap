@@ -1,4 +1,6 @@
 EuskalMap, una aplicación de Víctor González Fuente para visualizar el mapa de ocupación de la Euskal Encounter. Entregado el día 25 de julio.
+Nombre: Víctor González Fuente
+Nick: Nabe
 
 Este proyecto tiene las siguientes dependencias, que son librerías de código libre, encontradas en Github, que hacen uso de la licencia MIT:
 
