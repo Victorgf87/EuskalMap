@@ -11,6 +11,14 @@ public class Groups
     private List<Group> groups;
     private static Groups instance;
 
+    /**
+     * Clears collection
+     */
+    public void reset()
+    {
+        groups.clear();
+    }
+
     public static Groups getInstance()
     {
         if(instance==null)

@@ -11,6 +11,14 @@ public class Users
     private static Users instance;
     private List<User> users;
 
+    /**
+     * Clears collection
+     */
+    public void reset()
+    {
+        users.clear();
+    }
+
     public static Users getInstance()
     {
         if(instance==null)

@@ -12,6 +12,14 @@ public class Places
     private List<Place> places;
     private static Places instance;
 
+    /**
+     * Clears places collection.
+     */
+    public void reset()
+    {
+        places.clear();
+    }
+
     private Places()
     {
         places=new ArrayList<Place>();

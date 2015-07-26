@@ -40,6 +40,8 @@ public class Fetcher
      */
     public void fetchFromUrl()throws IOException
     {
+        this.clearCollections();
+
         List<String> rowNames=new ArrayList<String>();
 
         for(char a='A'; a<='B'; a++)
@@ -114,59 +116,14 @@ public class Fetcher
         return ret;
     }
 
-
-
-    /*private List<Group> groupCache;
-
-
-
-
-    public Fetcher()
+    /**
+     * Clears all data so we can reload it.
+     */
+    private void clearCollections()
     {
-        groupCache=new ArrayList<Group>();
+        Places.getInstance().reset();
+        Users.getInstance().reset();
+        Groups.getInstance().reset();
     }
-
-    public void fetchFromUrl() throws IOException
-    {
-        List<String> rowNames=new ArrayList<String>();
-        List<Place> places=new ArrayList<Place>();
-
-        for(char a='A'; a<='B'; a++)
-        {
-            for(char b='A'; b<='P'; b++)
-            {
-                rowNames.add(""+a+b);
-            }
-        }
-
-        Document doc = Jsoup.connect(Fetcher.URL).get();
-        //Elements newsHeadlines = doc.select("#mapa-sitios tr td");
-        //Elements elems=doc.select("td:containsOwn(.)");
-        Elements userElems=doc.select("td:containsOwn(.)");
-
-        int i=0;
-
-        for(Element elem: userElems)
-        {
-            String cssClass=elem.attr("class");
-            String title=elem.attr("class");
-            String[] titleParts=title.split("/");
-            String userName=titleParts[0];
-            String groupName=null;
-            if(titleParts.length>1)
-            {
-                groupName=titleParts[1];
-            }
-
-            User user=new User(userName, new Group(groupName));
-        }
-
-
-        int a=3;
-        int b=a;
-
-    }*/
-
-
 }
 
